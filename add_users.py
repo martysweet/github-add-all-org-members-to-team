@@ -62,7 +62,6 @@ def github_api_get_request(path):
 
     return buf
 
-github
 def github_api_put_request(path):
     r = requests.put("https://api.github.com/" + path, auth=(accessKey, ''))
 
