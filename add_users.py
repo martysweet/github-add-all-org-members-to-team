@@ -65,7 +65,13 @@ def github_api_get_request(path):
 def github_api_put_request(path):
     r = requests.put("https://api.github.com/" + path, auth=(accessKey, ''))
 
-    if r.status_code != 200:
+    if r.status_code == 422:
+        print "INFO: Request to " + path + " resulted with 422, which can be ignored since it has to do with SAML"   
+        return {
+          "state" : "no SSO",
+          "role"  : "member"
+        }
+    elif r.status_code != 200:
         print "ERROR: Request to " + path + " resulted with " + str(r.status_code)
         print "ERROR: Internal error when updating team membership."
         quit()
